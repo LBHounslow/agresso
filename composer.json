@@ -1,0 +1,30 @@
+{
+  "name": "lb-hounslow/agresso",
+  "description": "Used for exporting Agresso journal (.dat) files",
+  "type": "library",
+  "license": "proprietary",
+  "require": {
+    "php": ">=7.4.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "LBHounslow\\Agresso\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Unit\\": "tests/unit/"
+    }
+  },
+  "scripts": {
+    "test": [
+      "./vendor/bin/phpunit tests --colors"
+    ]
+  }
+}
