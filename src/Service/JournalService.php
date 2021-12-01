@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LBHounslow\Agresso\Service;
 
 use LBHounslow\Agresso\Entity\Journal;
+use LBHounslow\Agresso\Exception\FileNotFoundException;
 use LBHounslow\Agresso\Exception\FileWriteException;
 use LBHounslow\Agresso\Exception\FolderNotWriteableException;
 use LBHounslow\Agresso\Exception\InvalidFileExtensionException;
@@ -32,14 +33,20 @@ class JournalService
     /**
      * @param Journal $journal
      * @return int
+     * @throws FileNotFoundException
      * @throws FileWriteException
      * @throws FolderNotWriteableException
+     * @throws InvalidFileExtensionException
      * @throws JournalEntriesNotFoundException
      */
     public function exportJournal(Journal $journal)
     {
         if (!$journal->getJournalEntries()) {
             throw new JournalEntriesNotFoundException();
+        }
+
+        if (!$journal->getFile()) {
+            throw new FileNotFoundException('File is required, use setFile() method to add an export file');
         }
 
         if ($journal->getFile()->getExtension() !== self::EXPECTED_FILE_EXTENSION) {
